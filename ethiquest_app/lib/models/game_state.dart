@@ -142,4 +142,9 @@ class GameState extends Equatable {
     marketShareTrend,
     sustainabilityTrend,
   ];
+
+  double get experienceProgress {
+    // Simple linear progression for now
+    return (experiencePoints % 1000) / 1000.0;
+  }
 }
