@@ -54,46 +54,11 @@ class _TestScreenState extends State<TestScreen> {
         'community': 65.0,
         'environment': 85.0,
       },
-      activeChallenges: [
-        Challenge(
-          id: '1',
-          name: 'Employee Retention',
-          type: ChallengeType.stakeholder,
-          severity: ChallengeSeverity.medium,
-          description: 'Address declining employee satisfaction',
-        ),
-      ],
+      activeChallenges: [],
       financialTrend: 5.2,
       reputationTrend: 2.8,
       marketShareTrend: -1.5,
       sustainabilityTrend: 3.0,
-    );
-  }
-
-  void _handleMetricTap(GameMetric metric) {
-    // Show metric details in a dialog
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text(metric.name),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text('Value: ${metric.value}'),
-            if (metric.trend != null)
-              Text('Trend: ${metric.trend! > 0 ? '+' : ''}${metric.trend}%'),
-            const SizedBox(height: 8),
-            Text(metric.description),
-          ],
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(),
-            child: const Text('Close'),
-          ),
-        ],
-      ),
     );
   }
 
@@ -107,81 +72,17 @@ class _TestScreenState extends State<TestScreen> {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            // Company Dashboard
             Expanded(
               child: CompanyDashboard(
                 gameState: gameState,
-                onMetricTap: _handleMetricTap,
-              ),
-            ),
-            // Test Controls
-            Card(
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      'Test Controls',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
+                onMetricTap: (metric) {
+                  // Show a simple snackbar for now
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text('Tapped metric: ${metric.name}'),
                     ),
-                    const SizedBox(height: 8),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        ElevatedButton(
-                          onPressed: () {
-                            setState(() {
-                              gameState = gameState.copyWith(
-                                financialResources: 
-                                    gameState.financialResources + 100000,
-                                financialTrend: 10.5,
-                              );
-                            });
-                          },
-                          child: const Text('Increase Finances'),
-                        ),
-                        ElevatedButton(
-                          onPressed: () {
-                            setState(() {
-                              gameState = gameState.copyWith(
-                                reputationPoints: 
-                                    gameState.reputationPoints + 5,
-                                reputationTrend: 5.0,
-                              );
-                            });
-                          },
-                          child: const Text('Boost Reputation'),
-                        ),
-                        ElevatedButton(
-                          onPressed: () {
-                            // Add a new challenge
-                            setState(() {
-                              final challenges = 
-                                  List<Challenge>.from(gameState.activeChallenges);
-                              challenges.add(
-                                Challenge(
-                                  id: DateTime.now().toString(),
-                                  name: 'Market Competition',
-                                  type: ChallengeType.financial,
-                                  severity: ChallengeSeverity.high,
-                                  description: 'New competitor entered market',
-                                ),
-                              );
-                              gameState = gameState.copyWith(
-                                activeChallenges: challenges,
-                              );
-                            });
-                          },
-                          child: const Text('Add Challenge'),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
+                  );
+                },
               ),
             ),
           ],
