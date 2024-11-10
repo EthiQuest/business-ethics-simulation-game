@@ -1,0 +1,49 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+ENV/
+.env
+.env.local
+*.log
+
+# Flutter/Dart
+ethiquest_app/.dart_tool/
+ethiquest_app/.flutter-plugins
+ethiquest_app/.flutter-plugins-dependencies
+ethiquest_app/.packages
+ethiquest_app/build/
+ethiquest_app/.pub/
+ethiquest_app/.dart_tool/
+ethiquest_app/*.iml
+ethiquest_app/*.lock
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+
+# Docker
+.docker/
+docker-compose.override.yml
+
+# Database
+*.sqlite3
+*.db
+
+# Logs
+logs/
+*.log
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Dependencies
+node_modules/
