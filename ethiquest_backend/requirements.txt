@@ -77,5 +77,3 @@ debugpy==1.8.0       # Debugging
 
 # Version Management
 pip-tools==7.3.0     # Dependency management
-
-python_version = "3.11"
