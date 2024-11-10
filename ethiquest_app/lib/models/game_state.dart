@@ -1,7 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:json_annotation/json_annotation.dart';
-
-part 'game_state.g.dart';
+import 'package:equatable/equatable.dart';
 
 enum CompanySize { small, medium, large }
 
@@ -15,7 +13,6 @@ enum ChallengeType {
   operational
 }
 
-@JsonSerializable()
 class Challenge extends Equatable {
   final String id;
   final String name;
@@ -31,16 +28,10 @@ class Challenge extends Equatable {
     required this.description,
   });
 
-  factory Challenge.fromJson(Map<String, dynamic> json) => 
-      _$ChallengeFromJson(json);
-
-  Map<String, dynamic> toJson() => _$ChallengeToJson(this);
-
   @override
   List<Object?> get props => [id, name, type, severity, description];
 }
 
-@JsonSerializable()
 class GameState extends Equatable {
   final String id;
   final String playerId;
@@ -53,7 +44,6 @@ class GameState extends Equatable {
   final double marketShare;
   final String sustainabilityRating;
   final Map<String, double> stakeholderSatisfaction;
-  @JsonKey(defaultValue: [])
   final List<Challenge> activeChallenges;
   final double? financialTrend;
   final double? reputationTrend;
@@ -79,10 +69,9 @@ class GameState extends Equatable {
     this.sustainabilityTrend,
   });
 
-  factory GameState.fromJson(Map<String, dynamic> json) => 
-      _$GameStateFromJson(json);
-
-  Map<String, dynamic> toJson() => _$GameStateToJson(this);
+  double get experienceProgress {
+    return (experiencePoints % 1000) / 1000.0;
+  }
 
   GameState copyWith({
     String? id,
@@ -114,8 +103,8 @@ class GameState extends Equatable {
       marketShare: marketShare ?? this.marketShare,
       sustainabilityRating: sustainabilityRating ?? this.sustainabilityRating,
       stakeholderSatisfaction: 
-          stakeholderSatisfaction ?? this.stakeholderSatisfaction,
-      activeChallenges: activeChallenges ?? this.activeChallenges,
+          stakeholderSatisfaction ?? Map.from(this.stakeholderSatisfaction),
+      activeChallenges: activeChallenges ?? List.from(this.activeChallenges),
       financialTrend: financialTrend ?? this.financialTrend,
       reputationTrend: reputationTrend ?? this.reputationTrend,
       marketShareTrend: marketShareTrend ?? this.marketShareTrend,
@@ -142,9 +131,4 @@ class GameState extends Equatable {
     marketShareTrend,
     sustainabilityTrend,
   ];
-
-  double get experienceProgress {
-    // Simple linear progression for now
-    return (experiencePoints % 1000) / 1000.0;
-  }
 }

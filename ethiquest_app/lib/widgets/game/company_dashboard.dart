@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import '../../models/game_state.dart';
-import '../../models/game_metric.dart';
+import '../../models/game_metric.dart';  // Make sure this exists
 import '../common/animated_metric_card.dart';
 import '../common/trend_indicator.dart';
 import 'package:intl/intl.dart';
 
+// Rest of the code remains the same...
 class CompanyDashboard extends StatelessWidget {
   final GameState gameState;
   final Function(GameMetric) onMetricTap;
