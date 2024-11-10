@@ -73,6 +73,7 @@ flutter:
     - assets/images/
     - assets/animations/
     - assets/icons/
+    - assets/fonts/Poppins-Regular.ttf
     
   fonts:
     - family: Poppins
